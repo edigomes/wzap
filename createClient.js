@@ -5,7 +5,10 @@ const createClient = function(session) {
 
     const client = new Client({
         authStrategy: new LocalAuth({ clientId: session.clientId }),
-        puppeteer: { headless: true }
+        puppeteer: { 
+            headless: true,
+            args: ['--no-sandbox'],
+        }
     });
     
     client.initialize();
