@@ -2,6 +2,12 @@ const { Sequelize } = require('sequelize');
 const db = require("../../config/db.js");
 
 const Session = db.define("sessions", {
+    id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+    },
     clientId: {
         type: Sequelize.STRING
     },
