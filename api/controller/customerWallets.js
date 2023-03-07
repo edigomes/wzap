@@ -34,12 +34,29 @@ module.exports = () => {
             return client.clientId == msg_data.clientId;
         });
         if (zapClientStoreList.length) {
+
             const zapClient = zapClientStoreList[0].client;
-            var result = await zapClient.sendMessage(msg_data.to, msg_data.message);
+            var to = msg_data.to;
+            var message = msg_data.message;
+
+            // Resolve problema de nono dígito
+            if (to.startsWith('55') && to.length == 13 && to[4] == 9) {
+                contactId = await zapClient.getNumberId(to.slice(0, 4) + to.slice(5))
+            }
+            if (!contactId) {
+                contactId = await zapClient.getNumberId(to)
+            }
+            if (contactId) {
+                to = contactId.user
+            }
+
+            var result = await zapClient.sendMessage(to + '@c.us', message);
+
             //console.log(result);
             res.status(200).json({
                 message: result
             });
+
         } else {
             res.status(400).send({
                 message: "clientId not found"
