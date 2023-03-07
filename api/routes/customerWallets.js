@@ -9,4 +9,7 @@ module.exports = app => {
         
     app.route('/api/v1/sendMessage')
         .post(controller.sendMessage)
+        
+    app.route('/api/v1/removeClient')
+        .post(controller.removeClient)
 }

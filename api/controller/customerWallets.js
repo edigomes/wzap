@@ -65,6 +65,31 @@ module.exports = () => {
         }
     }
 
+    controller.removeClient = async (req, res) => {
+
+        const msg_data = req.body;
+        const zapClientStoreList = store.filter((client) => {
+            return client.clientId == msg_data.clientId;
+        });
+
+        if (zapClientStoreList.length) {
+
+            const zapClient = zapClientStoreList[0].client;
+            
+            await zapClient.logout();
+            await zapClient.destroy();
+
+            res.status(200).json({
+                message: msg_data.clientId + ' closed'
+            });
+
+        } else {
+            res.status(400).send({
+                message: "clientId not found"
+            });
+        }
+    }
+
     controller.listClients = async (req, res) => {
         res.status(200).json({
             count: store.length
