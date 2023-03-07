@@ -79,6 +79,13 @@ module.exports = () => {
             await zapClient.logout();
             await zapClient.destroy();
 
+            await Session.destroy({
+                where: {
+                    clientId: msg_data.clientId,
+                    cnpj: msg_data.cnpj,
+                }
+            })
+
             res.status(200).json({
                 message: msg_data.clientId + ' closed'
             });
