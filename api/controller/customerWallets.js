@@ -36,8 +36,9 @@ module.exports = () => {
         if (zapClientStoreList.length) {
 
             const zapClient = zapClientStoreList[0].client;
-            var to = msg_data.to;
-            var message = msg_data.message;
+            let to = msg_data.to;
+            let message = msg_data.message;
+            let contactId;
 
             // Resolve problema de nono dígito
             if (to.startsWith('55') && to.length == 13 && to[4] == 9) {
