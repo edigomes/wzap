@@ -76,7 +76,12 @@ module.exports = () => {
 
             const zapClient = zapClientStoreList[0].client;
             
-            await zapClient.logout();
+            try {
+                await zapClient.logout();
+            } catch (error) {
+                console.error(error);
+            }
+
             await zapClient.destroy();
 
             await Session.destroy({
