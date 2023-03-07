@@ -86,6 +86,11 @@ module.exports = () => {
                 }
             })
 
+            let index = store.findIndex((client) => {
+                return client.clientId == msg_data.clientId;
+            });
+            store.splice(index, 1);
+
             res.status(200).json({
                 message: msg_data.clientId + ' closed'
             });
